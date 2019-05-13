@@ -51,25 +51,23 @@ class Assignment2:
 
 
     def get_number_of_indels(self):
-        '''
-        Return the number of identified INDELs
-        :return:
-        '''
-        print("TODO")
+        vcf_reader = vcf.Reader(open('chr22_new.vcf', 'r'))
+        indel=0
+        for entry in vcf_reader:
+            if entry.is_indel == True:
+                indel+=1
+        print('Number of INDELs: ', indel)
 
 
     def get_number_of_snvs(self):
-        '''
-        Return the number of SNVs
-        :return:
-        '''
-        print("TODO")
+        vcf_reader = vcf.Reader(open('chr22_new.vcf', 'r'))
+        snp=0
+        for entry in vcf_reader:
+            if entry.is_snp == True:
+                snp+=1
+        print('Number of SNVs: ', snp)
 
     def get_number_of_heterozygous_variants(self):
-        '''
-        Return the number of heterozygous variants
-        :return:
-        '''
         print("TODO")
 
 
@@ -90,7 +88,7 @@ class Assignment2:
         #self.get_variant_caller_of_vcf()
         #self.get_human_reference_version()
         self.get_number_of_indels()
-        #self.get_number_of_snvs()
+        self.get_number_of_snvs()
         #self.get_number_of_heterozygous_variants()
         #self.merge_chrs_into_one_vcf()
 
