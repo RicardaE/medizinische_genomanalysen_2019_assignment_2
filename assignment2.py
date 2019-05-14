@@ -33,12 +33,15 @@ class Assignment2:
 
 
     def get_variant_caller_of_vcf(self):
-        #callsetnames=,HiSeqPE300xfreebayes
-        '''
-        Return the variant caller name
-        :return:
-        '''
-        print("TODO")
+        vcf_reader = vcf.Reader(open('chr22_new.vcf', 'r'))
+        callers=[]
+        for entry in vcf_reader:
+            c = entry.INFO['callsetnames']
+            for i in c:
+                if i not in callers:
+                    callers.append(i)
+        callers.remove('')
+        print('Variant Callers: ', callers)
 
 
     def get_human_reference_version(self):
@@ -68,7 +71,12 @@ class Assignment2:
         print('Number of SNVs: ', snp)
 
     def get_number_of_heterozygous_variants(self):
-        print("TODO")
+        vcf_reader = vcf.Reader(open('chr22_new.vcf', 'r'))
+        het=0
+        for entry in vcf_reader:
+            if entry.num_het != 0:
+                het+=1
+        print('Number of heterozygous variants: ', het)
 
 
     def merge_chrs_into_one_vcf(self):
@@ -85,11 +93,11 @@ class Assignment2:
         print("Print all results here")
         self.get_average_quality_of_file()
         self.get_total_number_of_variants_of_file()
-        #self.get_variant_caller_of_vcf()
+        self.get_variant_caller_of_vcf()
         #self.get_human_reference_version()
         self.get_number_of_indels()
         self.get_number_of_snvs()
-        #self.get_number_of_heterozygous_variants()
+        self.get_number_of_heterozygous_variants()
         #self.merge_chrs_into_one_vcf()
 
 
